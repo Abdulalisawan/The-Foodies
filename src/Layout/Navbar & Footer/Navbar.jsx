@@ -14,12 +14,15 @@ const handlesignout=()=>{
   })
 }
     return (
-        <div className='bg-white border-b-2 shadow-2xl px-5 py-4 items-center shadow-3xl  flex justify-between  rounded-b-3xl mx-10 '>
+        <div className='bg-white border-b-2 md:flex-row flex-col shadow-2xl px-5 py-4 items-center shadow-3xl  flex justify-between  rounded-b-3xl mx-10 '>
 
             <div className=' text-black text-3xl'>𝕿𝖍𝖊-𝖋𝖔𝖔𝖉𝖎𝖊𝖘</div>
 
-            <div>
-              <NavLink className={'text-black'} to={'/'}>Home</NavLink>
+            <div className='flex gap-2'>
+              <NavLink className={'text-black font-semibold'} to={'/'}>Home</NavLink>
+              <NavLink className={'text-black font-semibold'} to={'/reviews'}>All Reviews</NavLink>
+              <NavLink className={'text-black font-semibold'} to={'/'}>My reviews</NavLink>
+              <NavLink className={'text-black font-semibold'} to={'/'}>Add Reviews</NavLink>
             </div>
             
            
@@ -58,13 +61,13 @@ const handlesignout=()=>{
 </div>
 </>):(
    <div className='flex gap-2'>
-    <Link to={'/Register'}
-  className="flex px-7 items-center justify-center w-full h-[50px] rounded-[30px] border border-[#2f2f2f] bg-[linear-gradient(to_top,_#0a0a0a_0%,_#1a1a1a_80%,_#2a2a2a_100%)] transition-all duration-200 ease-in-out font-semibold text-[14px] text-[#f1f1f1] [text-shadow:0_1px_#000] hover:bg-white  hover:shadow-[0_4px_6px_rgba(0,0,0,0.3)] active:shadow-[inset_0_0_10px_#777]"
+    <Link to={'/Login'}
+  className=" items-center justify-center  px-10 py-4  rounded-[30px] border border-[#2f2f2f] bg-emerald-700 transition-all duration-200 ease-in-out font-semibold text-[14px] text-[#f1f1f1] [text-shadow:0_1px_#000] hover:bg-emerald-900  hover:shadow-[0_4px_6px_rgba(0,0,0,0.3)] active:shadow-[inset_0_0_10px_#777]"
 >
   Login
 </Link>
-<Link to={'/Login'}
-  className="flex px-5 items-center justify-center w-full h-[50px] rounded-[30px] border border-[#2f2f2f] bg-[linear-gradient(to_top,_#0a0a0a_0%,_#1a1a1a_80%,_#2a2a2a_100%)] transition-all duration-200 ease-in-out font-semibold text-[14px] text-[#f1f1f1] [text-shadow:0_1px_#000] hover:bg-white  hover:shadow-[0_4px_6px_rgba(0,0,0,0.3)] active:shadow-[inset_0_0_10px_#777]"
+<Link to={'/Register'}
+  className=" items-center justify-center  px-10 py-4  rounded-[30px] border border-[#2f2f2f] bg-emerald-700 transition-all duration-200 ease-in-out font-semibold text-[14px] text-[#f1f1f1] [text-shadow:0_1px_#000] hover:bg-emerald-900  hover:shadow-[0_4px_6px_rgba(0,0,0,0.3)] active:shadow-[inset_0_0_10px_#777]"
 >
   Register
 </Link>

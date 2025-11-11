@@ -3,13 +3,25 @@ import Home from "../Layout/Home/Home";
 import Register from "../Components/Register";
 import Hero from "../Components/Hero";
 import Login from "../Components/Login";
+import MIddle from "../Layout/Middle/MIddle";
+import Allreviews from "../Pages/Allreviews";
+import Reviewdetail from "../Components/Reviewdetail";
+import Privaterouter from "../Context/Privaterouter";
+
  export const router = createBrowserRouter([
   {
     path: "/",
+    
     element:<Home></Home>,
     children:[
         {
-            index:true , element:<Hero></Hero>
+            index:true ,
+             loader:async ()=>{
+              const res= await fetch('http://localhost:3000/reviews')
+              return res.json()
+            },
+           
+             element:<MIddle></MIddle>
         }
         ,
         {
@@ -19,6 +31,29 @@ import Login from "../Components/Login";
         ,
         {
           path:'/Login', element:<Login></Login>
+        }
+        ,
+        {
+          path:'/reviews',
+           loader:async({request})=>{
+            const url = new URL(request.url)
+            const search= url.searchParams.get('search') || "";
+            const res = await fetch(`http://localhost:3000/search-reviews?search=${search}`);
+            return res.json()
+           },
+           
+           element:<Allreviews></Allreviews>
+        },
+        {
+          path:'/review-detail/:id',
+          loader:async({params})=>{
+            const res= await fetch(`http://localhost:3000/review-detail/${params.id}`)
+            return res.json()
+
+          },
+           element:<Privaterouter>
+            <Allreviews></Allreviews>
+           </Privaterouter>
         }
     ]
   },

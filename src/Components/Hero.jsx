@@ -61,9 +61,9 @@ const Hero = () => {
         
      
 
-         <section className="  bg-white w-[50vw] mx-auto mt-10  flex flex-col md:flex-row items-center justify-between px-6 md:px-20 py-10 rounded-3xl shadow-md overflow-hidden">
+         <section className="  bg-white w-[95vw] md:w-[75vw]  lg:w-[70vw] mx-auto mt-10  flex flex-col  md:flex-col lg:flex-row items-center justify-between px-6 md:px-20 py-10 rounded-3xl shadow-md overflow-hidden">
      
-      <div ref={TextRef} className="flex flex-col items-start text-left space-y-5 md:w-1/2">
+      <div ref={TextRef} className="flex flex-col items-start text-left space-y-5 ">
         
 
         <h1  className=" text-4xl md:text-6xl font-extrabold text-black leading-tight">
@@ -86,20 +86,23 @@ const Hero = () => {
        
       </div>
 
-      {/* --- Right Image Section --- */}
-      <div className="relative flex justify-center items-center mt-10 md:mt-0 md:w-1/2">
-        {/* Background Gradient Circle */}
-        <div className="absolute w-[360px] h-[360px] md:w-[420px] md:h-[420px] rounded-full bg-gradient-to-r from-white to-red-100"></div>
+     
+      <div className="relative flex justify-center mt-10 lg:mt-0 items-center md:mt-10 ">
+  {/* Gradient Circle Background */}
+  <div className="absolute w-[240px] h-[240px] sm:w-[280px] sm:h-[280px] md:w-[320px] md:h-[320px] lg:w-[360px] lg:h-[360px] rounded-full bg-gradient-to-r from-white to-red-100"></div>
 
-        {/* Food Image */}
-        <img
-        ref={imgRef}
-          src={dishes[index].img}
-          alt="Healthy Lunch"
-          className="relative z-10 w-[300px] h-[300px] md:w-[360px] md:h-[360px] object-cover rounded-full shadow-xl"
-        />
-      </div>
-      
+  {/* Circular Image Wrapper */}
+  <div className="relative z-10 w-[200px] h-[200px] sm:w-[240px] sm:h-[240px] md:w-[280px] md:h-[280px] lg:w-[300px] lg:h-[300px] rounded-full overflow-hidden shadow-xl flex justify-center items-center bg-white">
+    <img
+      ref={imgRef}
+      src={dishes[index].img}
+      alt={dishes[index].title}
+      className="h-full w-auto object-cover object-center"
+      style={{ aspectRatio: '1 / 1', transform: 'scale(1.3)' }} 
+    />
+  </div>
+</div>
+
     </section>
     <div className='flex gap-2 mt-2 justify-center'>
     <button
