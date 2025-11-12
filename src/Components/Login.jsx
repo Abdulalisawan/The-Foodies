@@ -39,7 +39,7 @@ const Login = () => {
 
       signInWithPopup(auth,provider).then((result)=>{
         console.log(result.user)
-        navigate('/review-detail/69115f89d87d40498672e039')
+        navigate(from,{replace:true})
       }).catch(err=>{
         console.log(err)
       })

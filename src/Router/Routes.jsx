@@ -66,11 +66,9 @@ import Myreviews from "../Pages/Myreviews";
             </Privaterouter>
         },
         {
-          path:'/myreview',
-          loader:async({request})=>{
-            const url = new URL(request.url)
-            const email= url.searchParams.get('email')
-            const res= await fetch('')
+          path:'/myreview/:email',
+          loader:async({params})=>{
+            const res= await fetch(`http://localhost:3000/myreview/${params.email}`)
             return res.json()
 
           },

@@ -21,8 +21,7 @@ const handlesignout=()=>{
             <div className='flex gap-2'>
               <NavLink className={'text-black font-semibold'} to={'/'}>Home</NavLink>
               <NavLink className={'text-black font-semibold'} to={'/reviews'}>All Reviews</NavLink>
-              <NavLink className={'text-black font-semibold'} to={'/'}>My reviews</NavLink>
-              <NavLink className={'text-black font-semibold'} to={'/addreview'}>Add Reviews</NavLink>
+            
             </div>
             
            
@@ -53,9 +52,10 @@ const handlesignout=()=>{
     tabIndex={0}
     className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow-lg"
   >
-    <li><a>Add review</a></li>
-    <li><a>MY review</a></li>
-    <li onClick={handlesignout}><a>Logout</a></li>
+    <li> <NavLink className={'text-black font-semibold'} to={`/myreview/${Userdata?.email}`}>My reviews</NavLink></li>
+    <li> 
+              <NavLink className={'text-black font-semibold'} to={'/addreview'}>Add Reviews</NavLink></li>
+    <li onClick={handlesignout}><button> Logout </button></li>
   </ul>
 </div>
 </div>

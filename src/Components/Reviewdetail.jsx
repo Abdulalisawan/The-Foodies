@@ -9,7 +9,7 @@ const Reviewdetail = () => {
     return (
         <div className="flex flex-col md:flex-row items-center md:items-start bg-gradient-to-r from-gray-900 to-gray-800 text-white rounded-2xl shadow-lg p-6 md:p-10 max-w-4xl mx-auto my-10">
       
-      <div className="w-full  flex justify-center mb-6 md:mb-0">
+      <div className="w-full  flex justify-center border-2 flex-1 mb-6 md:mb-0">
         <img
           src={data.photo}
           alt={data.foodName}
@@ -18,7 +18,8 @@ const Reviewdetail = () => {
       </div>
 
       
-      <div className="md:ml-8 text-center md:text-left">
+      <div className="md:ml-8 flex-2 text-center border-2 md:text-left">
+        <div>
         <h2 className="text-2xl md:text-3xl font-extrabold mb-3">
           {data.foodName}
         </h2>
@@ -38,6 +39,7 @@ const Reviewdetail = () => {
         <p className="text-white flex gap-2 items-center leading-relaxed">
          Rating : {data.rating}<FaStar></FaStar>
         </p>
+        </div>
         <div className=' flex  items-center justify-between '>        
           <p className="text-white leading-relaxed">
           Date : {data.reviewDate}

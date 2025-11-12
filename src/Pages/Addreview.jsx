@@ -2,12 +2,13 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Authcontext } from '../Context/Authcontext';
+import { toast } from 'react-toastify';
  
 
 
 const Addreview=()=> {
   
-      const { register, handleSubmit, reset }=useForm();
+      const { register, handleSubmit, reset , setValue }=useForm();
     const {Userdata}=useContext(Authcontext)
     console.log(Userdata)
     const[date ,setdate]=useState('')
@@ -16,9 +17,11 @@ const Addreview=()=> {
     useEffect(()=>{
       const today= new Date().toISOString().split('T')[0]
       setdate(today)
-    },[])
+      setValue('reviewDate',today)
+    },[setValue])
   
  const handles= async(data)=>{
+  console.log(data)
     try{
         const res = await fetch('http://localhost:3000/Add-review',{
             method:'POST',
@@ -27,12 +30,14 @@ const Addreview=()=> {
             },
             body: JSON.stringify(data)
         })
-        return res.json()
+        return res.json(),
+        toast(`Review submited done`),
+        reset()
         
     }catch(error){
         console.log(`error happend`, error)
     }
-    reset()
+   
     
 
  }
