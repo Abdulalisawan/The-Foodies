@@ -1,12 +1,20 @@
 import React, { useContext } from 'react';
-import { Link, useNavigate } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 import { Authcontext } from '../Context/Authcontext';
 import { toast } from 'react-toastify';
+import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 
+import { auth } from '../Context/Auth';
+const provider= new GoogleAuthProvider()
 
 const Login = () => {
   const {Signin}=useContext(Authcontext)
+  
   const navigate= useNavigate()
+  const location= useLocation()
+  const from=location.state?.from?.pathname || '/'
+  console.log(from)
+  
 
   const handlesignin=(e)=>{
     e.preventDefault();
@@ -15,7 +23,7 @@ const Login = () => {
     Signin(email,password).then((result)=>[
       
       console.log(result.user),
-      navigate('/')
+      navigate(from,{replace: true})
       
     ]).catch((err)=>{
       console.log(err),
@@ -24,9 +32,22 @@ const Login = () => {
 
 
 
-
-
   }
+
+  
+     const signingogle = ()=>{
+
+      signInWithPopup(auth,provider).then((result)=>{
+        console.log(result.user)
+        navigate('/review-detail/69115f89d87d40498672e039')
+      }).catch(err=>{
+        console.log(err)
+      })
+    
+    
+
+     }
+
     return (
          <div className="min-h-screen flex items-center justify-center ">
       <div className="bg-white/70 backdrop-blur-xl shadow-lg rounded-3xl p-8 w-[350px] flex flex-col items-center">
@@ -61,10 +82,10 @@ const Login = () => {
           </div>
         </form>
 
-        <div className="mt-6 text-gray-500 text-sm">Or sign in with</div>
+        <div  className="mt-6 text-gray-500 text-sm">Or sign in with</div>
 
         <div className="flex justify-center gap-4 mt-4">
-          <button className="w-10 h-10 rounded-xl bg-white shadow hover:shadow-md flex items-center justify-center">
+          <button onClick={signingogle} className="w-10 h-10 rounded-xl bg-white shadow hover:shadow-md flex items-center justify-center">
             <img src="https://www.svgrepo.com/show/355037/google.svg" alt="Google" className="w-5" />
           </button>
          

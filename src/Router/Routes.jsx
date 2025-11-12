@@ -8,6 +8,7 @@ import Allreviews from "../Pages/Allreviews";
 import Reviewdetail from "../Components/Reviewdetail";
 import Privaterouter from "../Context/Privaterouter";
 import Addreview from "../Pages/Addreview";
+import Myreviews from "../Pages/Myreviews";
 
  export const router = createBrowserRouter([
   {
@@ -53,12 +54,27 @@ import Addreview from "../Pages/Addreview";
             return res.json()
 
           },
-           element:<Privaterouter>
-            <Allreviews></Allreviews>
-           </Privaterouter>
+           element: 
+           <Privaterouter>
+            <Reviewdetail></Reviewdetail>
+            </Privaterouter>
+           
         },
         {
-          path:'/addreview', element:<Addreview></Addreview>
+          path:'/addreview', element: <Privaterouter>
+            <Addreview></Addreview>
+            </Privaterouter>
+        },
+        {
+          path:'/myreview',
+          loader:async({request})=>{
+            const url = new URL(request.url)
+            const email= url.searchParams.get('email')
+            const res= await fetch('')
+            return res.json()
+
+          },
+           element:<Myreviews></Myreviews>
         }
     ]
   },

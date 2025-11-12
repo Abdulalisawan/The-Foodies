@@ -53,8 +53,8 @@ const handlesignout=()=>{
     tabIndex={0}
     className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow-lg"
   >
-    <li><a>Profile</a></li>
-    <li><a>Dashboard</a></li>
+    <li><a>Add review</a></li>
+    <li><a>MY review</a></li>
     <li onClick={handlesignout}><a>Logout</a></li>
   </ul>
 </div>
