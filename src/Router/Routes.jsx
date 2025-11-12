@@ -7,6 +7,7 @@ import MIddle from "../Layout/Middle/MIddle";
 import Allreviews from "../Pages/Allreviews";
 import Reviewdetail from "../Components/Reviewdetail";
 import Privaterouter from "../Context/Privaterouter";
+import Addreview from "../Pages/Addreview";
 
  export const router = createBrowserRouter([
   {
@@ -40,6 +41,7 @@ import Privaterouter from "../Context/Privaterouter";
             const search= url.searchParams.get('search') || "";
             const res = await fetch(`http://localhost:3000/search-reviews?search=${search}`);
             return res.json()
+           
            },
            
            element:<Allreviews></Allreviews>
@@ -54,6 +56,9 @@ import Privaterouter from "../Context/Privaterouter";
            element:<Privaterouter>
             <Allreviews></Allreviews>
            </Privaterouter>
+        },
+        {
+          path:'/addreview', element:<Addreview></Addreview>
         }
     ]
   },

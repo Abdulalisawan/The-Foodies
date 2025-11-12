@@ -1,13 +1,24 @@
 import React, { useEffect, useState } from 'react';
-import { useLoaderData, useNavigate } from 'react-router';
+import { useLoaderData, useNavigate, useRevalidator } from 'react-router';
+
 import Card from '../Components/Card';
 import { FaSearch } from 'react-icons/fa';
 
 const Allreviews = () => {
     const data=useLoaderData();
+    const revalidator= useRevalidator()
+    console.log(data)
     const navigate = useNavigate()
     const [search,setsearch]=useState('')
-    const Alldata= data.sort((a,b)=> b.rating - a.rating)
+    const Alldata= data.sort((a,b)=> b.reviewDate - a.reviewDate)
+
+    useEffect(()=>{
+      const intervel =setTimeout(() => {
+        revalidator.revalidate()
+        
+      }, 3000);
+      return()=>clearTimeout(intervel)
+    },[revalidator])
 
     useEffect(()=>{
         const delay = setTimeout(() => {

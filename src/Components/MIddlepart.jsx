@@ -4,6 +4,7 @@ import Card from './Card';
 
 const MIddlepart = () => {
     const data= useLoaderData()
+    console.log(data)
     const carddata= data.sort((a,b)=>b.rating - a.rating).slice(0,6)
     console.log(carddata)
     return (

@@ -33,6 +33,9 @@ const Card = ({eachdata}) => {
       <div className=" items-center w-full mt-4  px-3">
        
         <p className="text-lg font-semibold text-gray-800">  Reviewer: <br />{eachdata.reviewerName}</p>
+          <div>
+        <p className="text-lg flex items-center justify-center font-semibold text-gray-800"> Date: {eachdata.reviewDate}</p>
+        </div>
         <div className='flex items-center  mt-4 justify-between'>
          <div>
         <p className="text-lg flex items-center justify-center font-semibold text-gray-800"> {eachdata.rating} <FaStar></FaStar></p>

@@ -22,7 +22,7 @@ const handlesignout=()=>{
               <NavLink className={'text-black font-semibold'} to={'/'}>Home</NavLink>
               <NavLink className={'text-black font-semibold'} to={'/reviews'}>All Reviews</NavLink>
               <NavLink className={'text-black font-semibold'} to={'/'}>My reviews</NavLink>
-              <NavLink className={'text-black font-semibold'} to={'/'}>Add Reviews</NavLink>
+              <NavLink className={'text-black font-semibold'} to={'/addreview'}>Add Reviews</NavLink>
             </div>
             
            
