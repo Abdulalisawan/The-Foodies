@@ -1,15 +1,23 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { CiHeart } from 'react-icons/ci';
 import { FaHeart, FaRegHeart, FaStar } from 'react-icons/fa';
 import { FaLocationDot } from 'react-icons/fa6';
 import { Link } from 'react-router';
+import { Authcontext } from '../Context/Authcontext';
 
 const Card = ({eachdata}) => {
+  const{Userdata}=useContext(Authcontext)
 
   const[heart ,setheart]=useState(true)
+  const emaildata= Userdata.email 
+  
+  console.log(eachdata)
 
   const handlefavourite=async()=>{
+    
     setheart(false)
+
+    eachdata._email=emaildata
 
     const res = await fetch('http://localhost:3000/favourite-data',{
       method:'POST',

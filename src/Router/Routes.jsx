@@ -15,6 +15,11 @@ import Errorjs from "../Components/Error";
 import Editreview from "../Components/Editreview";
 import Favourite from "../Components/Favourite";
 
+import { Authcontext } from "../Context/Authcontext";
+import { getAuth } from "firebase/auth";
+
+
+
  export const router = createBrowserRouter([
   {
     path: "/",
@@ -73,11 +78,30 @@ import Favourite from "../Components/Favourite";
         },
         {
           path:'/myreview/:email',
-          loader:async({params})=>{
-            const res= await fetch(`http://localhost:3000/myreview/${params.email}`)
-            return res.json()
 
-          },
+          loader: async ({ params }) => {
+  const auth = getAuth();
+
+  // Wait for Firebase to initialize fully
+  const currentUser = await new Promise(resolve => {
+    const unsub = auth.onAuthStateChanged(user => {
+      unsub();
+      resolve(user);
+    });
+  });
+
+  if (!currentUser) {
+    throw new Response("Unauthorized", { status: 401 });
+  }
+
+  const token = await currentUser.getIdToken();
+
+  const res = await fetch(`http://localhost:3000/myreview/${params.email}`, {
+    headers: { authorization: `Bearer ${token}` }
+  });
+
+  return res.json();
+},
            element:<Myreviews></Myreviews>
         },
         {
@@ -87,9 +111,27 @@ import Favourite from "../Components/Favourite";
           path:'/edit-review/:id', element:<Editreview></Editreview>
         },
         {
-          path:'/my-favourite',
-          loader:async()=>{
-            const res= await fetch('http://localhost:3000/favourite')
+          path:'/my-favourite/:email',
+          loader:async({params})=>{
+
+            const auth = getAuth();
+
+  // Wait for Firebase to initialize fully
+  const currentUser = await new Promise(resolve => {
+    const unsub = auth.onAuthStateChanged(user => {
+      unsub();
+      resolve(user);
+    });
+  });
+
+  if (!currentUser) {
+    throw new Response("Unauthorized", { status: 401 });
+  }
+
+  const token = await currentUser.getIdToken();
+            const res= await fetch(`http://localhost:3000/favourite/${params.email}`,{
+              headers:{ authorization: `Bearer ${token}` }
+            })
             return res.json()
 
           },
