@@ -21,6 +21,7 @@ const handlesignout=()=>{
             <div className='flex gap-2'>
               <NavLink className={'text-black font-semibold'} to={'/'}>Home</NavLink>
               <NavLink className={'text-black font-semibold'} to={'/reviews'}>All Reviews</NavLink>
+              <NavLink className={'text-black font-semibold'} to={'/Alldeals'}>Alldeals</NavLink>
             
             </div>
             

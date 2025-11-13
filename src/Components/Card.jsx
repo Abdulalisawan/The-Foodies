@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 
 const Card = ({eachdata}) => {
     return (
-       <div className="bg-gradient-to-b h-[380px] from-[#f5f7f6] to-[#ebf0ec] w-full rounded-3xl p-4 shadow-md hover:shadow-lg transition-all duration-300 flex flex-col items-center text-center relative">
+       <div className="bg-gradient-to-b  from-[#f5f7f6] to-[#ebf0ec] w-full rounded-3xl p-4 shadow-md hover:shadow-lg transition-all duration-300 flex flex-col items-center text-center relative">
       {/* Image */}
       <img
         src={eachdata.photo}

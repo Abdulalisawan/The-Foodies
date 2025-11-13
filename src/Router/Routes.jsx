@@ -9,6 +9,7 @@ import Reviewdetail from "../Components/Reviewdetail";
 import Privaterouter from "../Context/Privaterouter";
 import Addreview from "../Pages/Addreview";
 import Myreviews from "../Pages/Myreviews";
+import Deals from "../Pages/Deals";
 
  export const router = createBrowserRouter([
   {
@@ -73,6 +74,9 @@ import Myreviews from "../Pages/Myreviews";
 
           },
            element:<Myreviews></Myreviews>
+        },
+        {
+          path:'/Alldeals', element:<Deals></Deals>
         }
     ]
   },

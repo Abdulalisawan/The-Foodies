@@ -8,7 +8,7 @@ const MIddlepart = () => {
     const carddata= data.sort((a,b)=>b.rating - a.rating).slice(0,6)
     console.log(carddata)
     return (
-        <> <div className='flex  mx-15 mt-10 gap-2 justify-between items-center'>
+        <> <div className=' grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  mx-4 md:mx-10 mt-10 gap-10 justify-between items-center'>
             {
                 carddata.map(eachdata=><Card key={eachdata._id} eachdata={eachdata}></Card>)
             }
