@@ -12,8 +12,12 @@ const Login = () => {
   
   const navigate= useNavigate()
   const location= useLocation()
-  const from=location.state?.from?.pathname || '/'
-  console.log(from)
+  // prefer `from` query param (set by loaders) then fallback to location.state (Privaterouter)
+  const params = new URLSearchParams(location.search)
+  const fromQuery = params.get('from')
+  const fromState = location.state?.from?.pathname
+  const from = fromQuery ? decodeURIComponent(fromQuery) : (fromState || '/')
+  console.log('redirect after login ->', from)
   
 
   const handlesignin=(e)=>{
@@ -39,7 +43,7 @@ const Login = () => {
 
       signInWithPopup(auth,provider).then((result)=>{
         console.log(result.user)
-        navigate(from,{replace:true})
+          navigate(from,{replace:true})
       }).catch(err=>{
         console.log(err)
       })

@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router";
+import { createBrowserRouter, redirect } from "react-router";
 import Home from "../Layout/Home/Home";
 import Register from "../Components/Register";
 import Hero from "../Components/Hero";
@@ -14,11 +14,66 @@ import Error from "../Components/Error";
 import Errorjs from "../Components/Error";
 import Editreview from "../Components/Editreview";
 import Favourite from "../Components/Favourite";
-
-import { Authcontext } from "../Context/Authcontext";
 import { getAuth } from "firebase/auth";
+export async function myReviewLoader({ params, request }) {
+  const auth = getAuth();
 
+  const user = await new Promise((resolve) => {
+    const unsub = auth.onAuthStateChanged((u) => {
+      unsub();
+      resolve(u);
+    });
+  });
 
+  if (!user) {
+    const reqUrl = new URL(request.url);
+    const from = encodeURIComponent(reqUrl.pathname + reqUrl.search);
+    throw redirect(`/Login?from=${from}`);
+  }
+
+  const token = await user.getIdToken();
+
+  try {
+    const res = await fetch(`https://the-foodies-server-sigma.vercel.app/myreview/${params.email}`, {
+      headers: { authorization: `Bearer ${token}` },
+    });
+    if (!res.ok) return [];
+    return res.json();
+  } catch (error) {
+    console.error("Error loading myreview:", error);
+    return [];
+  }
+}
+export async function myfav({ params }) {
+  const auth = getAuth();
+
+  // Wait for Firebase hydration
+  const user = await new Promise((resolve) => {
+    const unsub = auth.onAuthStateChanged((u) => {
+      unsub();
+      resolve(u);
+    });
+  });
+
+  if (!user) {
+    throw new Response("Unauthorized", { status: 401 });
+  }
+
+  const token = await user.getIdToken();
+
+  // Normal fetch – no defer, no wrapper
+  const res = await fetch(`https://the-foodies-server-sigma.vercel.app/favourite/${params.email}`, {
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (!res.ok) {
+    throw new Response("Failed to load", { status: res.status });
+  }
+
+  return res.json(); // Loader returns actual data
+}
 
  export const router = createBrowserRouter([
   {
@@ -30,7 +85,7 @@ import { getAuth } from "firebase/auth";
         {
             index:true ,
              loader:async ()=>{
-              const res= await fetch('http://localhost:3000/reviews')
+              const res= await fetch('https://the-foodies-server-sigma.vercel.app/reviews')
               return res.json()
             },
            
@@ -51,7 +106,7 @@ import { getAuth } from "firebase/auth";
            loader:async({request})=>{
             const url = new URL(request.url)
             const search= url.searchParams.get('search') || "";
-            const res = await fetch(`http://localhost:3000/search-reviews?search=${search}`);
+            const res = await fetch(`https://the-foodies-server-sigma.vercel.app/search-reviews?search=${search}`);
             return res.json()
            
            },
@@ -61,7 +116,7 @@ import { getAuth } from "firebase/auth";
         {
           path:'/review-detail/:id',
           loader:async({params})=>{
-            const res= await fetch(`http://localhost:3000/review-detail/${params.id}`)
+            const res= await fetch(`https://the-foodies-server-sigma.vercel.app/review-detail/${params.id}`)
             return res.json()
 
           },
@@ -78,30 +133,7 @@ import { getAuth } from "firebase/auth";
         },
         {
           path:'/myreview/:email',
-
-          loader: async ({ params }) => {
-  const auth = getAuth();
-
-  // Wait for Firebase to initialize fully
-  const currentUser = await new Promise(resolve => {
-    const unsub = auth.onAuthStateChanged(user => {
-      unsub();
-      resolve(user);
-    });
-  });
-
-  if (!currentUser) {
-    throw new Response("Unauthorized", { status: 401 });
-  }
-
-  const token = await currentUser.getIdToken();
-
-  const res = await fetch(`http://localhost:3000/myreview/${params.email}`, {
-    headers: { authorization: `Bearer ${token}` }
-  });
-
-  return res.json();
-},
+          loader:myReviewLoader,
            element:<Myreviews></Myreviews>
         },
         {
@@ -112,29 +144,7 @@ import { getAuth } from "firebase/auth";
         },
         {
           path:'/my-favourite/:email',
-          loader:async({params})=>{
-
-            const auth = getAuth();
-
-  // Wait for Firebase to initialize fully
-  const currentUser = await new Promise(resolve => {
-    const unsub = auth.onAuthStateChanged(user => {
-      unsub();
-      resolve(user);
-    });
-  });
-
-  if (!currentUser) {
-    throw new Response("Unauthorized", { status: 401 });
-  }
-
-  const token = await currentUser.getIdToken();
-            const res= await fetch(`http://localhost:3000/favourite/${params.email}`,{
-              headers:{ authorization: `Bearer ${token}` }
-            })
-            return res.json()
-
-          },
+          loader:myfav,
 
            element:<Privaterouter>
             <Favourite></Favourite>

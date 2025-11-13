@@ -18,7 +18,7 @@ const Reviewdetail = () => {
       </div>
 
       
-      <div className="md:ml-8 flex-2 text-center border-2 md:text-left">
+      <div className="md:ml-8 flex-2 text-center  md:text-left">
         <div>
         <h2 className="text-2xl md:text-3xl font-extrabold mb-3">
           {data.foodName}

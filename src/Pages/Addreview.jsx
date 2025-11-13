@@ -23,7 +23,7 @@ const Addreview=()=> {
  const handles= async(data)=>{
   console.log(data)
     try{
-        const res = await fetch('http://localhost:3000/Add-review',{
+        const res = await fetch('https://the-foodies-server-sigma.vercel.app/Add-review',{
             method:'POST',
             headers:{
                 'Content-Type': 'application/json'

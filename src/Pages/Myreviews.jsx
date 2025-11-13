@@ -18,7 +18,7 @@ const Myreviews = () => {
       setid(id)
     }
     const handledelet= async()=>{
-      const res= await fetch(`http://localhost:3000/myreview/${id}`,{
+      const res= await fetch(`https://the-foodies-server-sigma.vercel.app/myreview/${id}`,{
         method: "DELETE"
         
       })

@@ -1,9 +1,10 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router';
 import { Authcontext } from '../../Context/Authcontext';
 
 const Navbar = () => {
   const {Userdata,Signout}= useContext(Authcontext)
+
 
 const handlesignout=()=>{
   Signout().then(()=>{

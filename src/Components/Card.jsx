@@ -9,7 +9,7 @@ const Card = ({eachdata}) => {
   const{Userdata}=useContext(Authcontext)
 
   const[heart ,setheart]=useState(true)
-  const emaildata= Userdata.email 
+  const emaildata= Userdata?.email 
   
   console.log(eachdata)
 
@@ -19,7 +19,7 @@ const Card = ({eachdata}) => {
 
     eachdata._email=emaildata
 
-    const res = await fetch('http://localhost:3000/favourite-data',{
+    const res = await fetch('https://the-foodies-server-sigma.vercel.app/favourite-data',{
       method:'POST',
       headers:{
 

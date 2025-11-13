@@ -8,7 +8,7 @@ const Lastmiddle = () => {
   
   useEffect(()=>{
   
-      fetch(`http://localhost:3000/deals`).then(res=>res.json()).then(datu=>setvalue(datu))
+      fetch(`https://the-foodies-server-sigma.vercel.app/deals`).then(res=>res.json()).then(datu=>setvalue(datu))
     
   },[])
 

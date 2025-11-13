@@ -14,7 +14,7 @@ const Editreview = () => {
     const{id}=useParams()
     console.log(id)
     useEffect(()=>{
-        fetch(`http://localhost:3000/review-detail/${id}`).then(res=>res.json()).then(data=>setdatu(data))
+        fetch(`https://the-foodies-server-sigma.vercel.app/review-detail/${id}`).then(res=>res.json()).then(data=>setdatu(data))
     },[id])
     const {Userdata}=useContext(Authcontext)
         console.log(Userdata)
@@ -40,7 +40,7 @@ const Editreview = () => {
     const description = e.target.des.value
     const data={foodName,photo,restaurantLocation,restaurantName ,ReviewerEmail,reviewDate,reviewerName,rating,description}
 
-   const res= await fetch(`http://localhost:3000/edit-review/${id}`,{
+   const res= await fetch(`https://the-foodies-server-sigma.vercel.app/edit-review/${id}`,{
         method:'PUT',
         headers:{
              "Content-Type": "application/json"
