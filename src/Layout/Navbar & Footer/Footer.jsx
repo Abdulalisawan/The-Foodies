@@ -4,7 +4,7 @@ import { NavLink } from 'react-router';
 
 const Footer = () => {
     return (
-        <footer className="bg-emerald-950  mx-10  rounded-t-3xl h-[30vh] flex flex-col justify-center text-white ">
+        <footer className="bg-emerald-950  mx-10 mt-10 mb-0 rounded-t-3xl h-[30vh] flex flex-col justify-center text-white ">
            
             
       

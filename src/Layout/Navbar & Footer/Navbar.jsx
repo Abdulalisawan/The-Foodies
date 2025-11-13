@@ -54,6 +54,7 @@ const handlesignout=()=>{
     className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow-lg"
   >
     <li> <NavLink className={'text-black font-semibold'} to={`/myreview/${Userdata?.email}`}>My reviews</NavLink></li>
+    <li> <NavLink className={'text-black font-semibold'} to={`/my-favourite`}>Favourite Review</NavLink></li>
     <li> 
               <NavLink className={'text-black font-semibold'} to={'/addreview'}>Add Reviews</NavLink></li>
     <li onClick={handlesignout}><button> Logout </button></li>

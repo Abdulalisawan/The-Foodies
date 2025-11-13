@@ -2,12 +2,38 @@
 import { FaCross, FaEdit } from 'react-icons/fa';
 import { MdEdit } from 'react-icons/md';
 import { RxCross1 } from 'react-icons/rx';
-import { useLoaderData } from 'react-router';
+import { Link, useLoaderData } from 'react-router';
 import Mycard from '../Components/Mycard';
+import { useRef, useState } from 'react';
+import { toast } from 'react-toastify';
 
 const Myreviews = () => {
     const data= useLoaderData()
+    const[id ,setid]=useState('')
+    const[reviews ,setreviews]=useState(data)
+    const modalref=useRef()
     console.log(data)
+    const handlemodal=(id)=>{
+      modalref.current.showModal()
+      setid(id)
+    }
+    const handledelet= async()=>{
+      const res= await fetch(`http://localhost:3000/myreview/${id}`,{
+        method: "DELETE"
+        
+      })
+      const data= await res.json()
+      console.log(data)
+
+      if(data.deletedCount> 0){
+        toast('deleted succesfully')
+        modalref.current.close()
+      }
+
+      setreviews((prev)=>prev.filter(item=> item._id !== id ))
+      
+      
+    }
     return (
         <>
         <div className=" w-full">
@@ -30,8 +56,8 @@ const Myreviews = () => {
               </tr>
             </thead>
             <tbody>
-              {data.map((eachdata) => (
-                <tr key={eachdata.id} className="hover:bg-base-200 transition-colors">
+              {reviews.map((eachdata) => (
+                <tr  className="hover:bg-base-200 transition-colors">
                   <td>
                     <div className="flex items-center gap-3">
                       <div className="avatar">
@@ -50,8 +76,17 @@ const Myreviews = () => {
                     <span className="badge badge-ghost">{eachdata.reviewDate}</span>
                   </td>
                   <td>
-                    <div className="flex gap-2">
+                    <div  className="flex gap-2">
+
                       <button
+                     
+                      
+
+                      
+
+                          onClick={()=>{
+                            handlemodal(eachdata._id)
+                          }}
                        
                         className="bg-red-600 hover:bg-red-700 text-white p-2 rounded-full transition-colors"
                         title="Delete"
@@ -59,14 +94,15 @@ const Myreviews = () => {
                         <RxCross1></RxCross1>
                        
                       </button>
-                      <button
+                      <Link 
+                      to={`/edit-review/${eachdata._id}`}
                         
                         className="bg-green-600 hover:bg-green-700 text-white p-2 rounded-full transition-colors"
                         title="Edit"
                       >
                         <FaEdit></FaEdit>
                         
-                      </button>
+                      </Link>
                     </div>
                   </td>
                 </tr>
@@ -102,6 +138,12 @@ const Myreviews = () => {
 
                 <div className="flex gap-2 pt-2">
                   <button
+
+
+
+                  onClick={()=>{
+                            handlemodal(eachdata._id)
+                          }}
                    
                     className="flex-1 bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded-lg flex items-center justify-center gap-2 transition-colors font-semibold"
                   >
@@ -131,6 +173,44 @@ const Myreviews = () => {
         )}
       </div>
     </div>
+
+    {/* Open the modal using document.getElementById('ID').showModal() method */}
+
+<dialog ref={modalref} id="my_modal_1" className="modal">
+  <div className="modal-box bg-emerald-900">
+           <h1 className='text-3xl font-semibold text-white'>Edit or Delet your review</h1>
+           <div className='flex gap-2 justify-center items-center mt-5'>
+           <button
+
+
+                   onClick={()=>modalref.current.close()}
+                  
+                   
+                    className="flex-1 bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded-lg flex items-center justify-center gap-2 transition-colors font-semibold"
+                  >
+
+                   Cancel
+                    
+                    
+                  </button>
+                  <button
+                  onClick={handledelet}
+                  
+                    
+                    className="flex-1 bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-lg flex items-center justify-center gap-2 transition-colors font-semibold"
+                  >
+                  Confirm
+                   
+                  </button>
+                  </div>
+    <div className="modal-action">
+      <form method="dialog">
+        
+        
+      </form>
+    </div>
+  </div>
+</dialog>
   
             
         </>

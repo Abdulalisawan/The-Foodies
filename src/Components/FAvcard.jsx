@@ -1,36 +1,11 @@
-import React, { useState } from 'react';
-import { CiHeart } from 'react-icons/ci';
-import { FaHeart, FaRegHeart, FaStar } from 'react-icons/fa';
+import React from 'react';
+import { FaStar } from 'react-icons/fa';
 import { FaLocationDot } from 'react-icons/fa6';
 import { Link } from 'react-router';
 
-const Card = ({eachdata}) => {
-
-  const[heart ,setheart]=useState(true)
-
-  const handlefavourite=async()=>{
-    setheart(false)
-
-    const res = await fetch('http://localhost:3000/favourite-data',{
-      method:'POST',
-      headers:{
-
-        'Content-Type': 'application/json'
-
-      },
-      body: JSON.stringify(eachdata)
-    })
-    const data= await res.json()
-    console.log(data)
-
-
-  }
+const FAvcard = ({eachdata}) => {
     return (
-      
-      
-      
-   
-       <div className="bg-gradient-to-b  from-[#f5f7f6] to-[#ebf0ec] w-full rounded-3xl p-4 shadow-md hover:shadow-lg transition-all duration-300 flex flex-col items-center text-center relative">
+        <div className="bg-gradient-to-b  from-[#f5f7f6] to-[#ebf0ec] w-full rounded-3xl p-4 shadow-md hover:shadow-lg transition-all duration-300 flex flex-col items-center text-center relative">
         
       
       <img
@@ -64,14 +39,12 @@ const Card = ({eachdata}) => {
         </div>
         <div className='flex items-center  mt-4 justify-between'>
           <div className='flex gap-5 items-center'>
-         <div>
+        
         <p className="text-lg flex items-center justify-center font-semibold text-gray-800"> {eachdata.rating} <FaStar></FaStar></p>
         </div>
-        <div>
-           <span onClick={handlefavourite}>{heart == true ? (<FaRegHeart></FaRegHeart>):(<FaHeart className='text-red-600'></FaHeart>)}</span>
-        </div>
+       
 
-        </div>
+        
         
 
         <div>
@@ -83,8 +56,7 @@ const Card = ({eachdata}) => {
       
       
     </div>
-  
     );
 };
 
-export default Card;
+export default FAvcard;

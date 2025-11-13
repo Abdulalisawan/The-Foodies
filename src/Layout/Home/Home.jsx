@@ -5,10 +5,14 @@ import Footer from '../Navbar & Footer/Footer';
 
 const Home = () => {
     return (
-        <div className="bg-gradient-to-b from-emerald-800 to-white">
-        <Navbar></Navbar>
-        <Outlet></Outlet>
-        <Footer></Footer>
+       
+        <div className="min-h-screen flex flex-col bg-gradient-to-b from-emerald-800 to-white">
+        <Navbar />
+       
+        <main className="flex-1">
+          <Outlet />
+        </main>
+        <Footer />
         </div>
     )
 };

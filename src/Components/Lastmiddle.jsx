@@ -15,7 +15,7 @@ const Lastmiddle = () => {
   const deals=value.slice((a,b)=>b.rating - a.rating).slice(0,6)
 
   return (
-    <section className="px-6 md:px-12 py-12 bg-emerald-900 rounded-4xl border-white shadow-2xl  mx-3 md:mx-10 ">
+    <section className="px-6 md:px-12 py-12 mt-10 bg-emerald-900 rounded-4xl border-white shadow-2xl  mx-3 md:mx-10 ">
     
       <div className="flex justify-between items-center mb-8">
         <div>

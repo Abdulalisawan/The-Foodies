@@ -12,6 +12,8 @@ import Myreviews from "../Pages/Myreviews";
 import Deals from "../Pages/Deals";
 import Error from "../Components/Error";
 import Errorjs from "../Components/Error";
+import Editreview from "../Components/Editreview";
+import Favourite from "../Components/Favourite";
 
  export const router = createBrowserRouter([
   {
@@ -80,6 +82,21 @@ import Errorjs from "../Components/Error";
         },
         {
           path:'/Alldeals', element:<Deals></Deals>
+        },
+        {
+          path:'/edit-review/:id', element:<Editreview></Editreview>
+        },
+        {
+          path:'/my-favourite',
+          loader:async()=>{
+            const res= await fetch('http://localhost:3000/favourite')
+            return res.json()
+
+          },
+
+           element:<Privaterouter>
+            <Favourite></Favourite>
+            </Privaterouter>
         }
     ]
   },
