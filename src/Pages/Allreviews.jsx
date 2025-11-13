@@ -57,7 +57,7 @@ const Allreviews = () => {
         <br />
         <span className="text-gray-600 font-medium">Give it another go</span>
       </p>
-    </div>):(<div className=' grid mt-15 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mx-2 gap-5 '>
+    </div>):(<div className=' grid mt-15 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mx-2 gap-10 '>
 
             {
                Alldata.length == 0 ?(''):(Alldata.map(eachdata=><Card key={eachdata._id} eachdata={eachdata}></Card>))

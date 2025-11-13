@@ -10,12 +10,15 @@ import Privaterouter from "../Context/Privaterouter";
 import Addreview from "../Pages/Addreview";
 import Myreviews from "../Pages/Myreviews";
 import Deals from "../Pages/Deals";
+import Error from "../Components/Error";
+import Errorjs from "../Components/Error";
 
  export const router = createBrowserRouter([
   {
     path: "/",
     
     element:<Home></Home>,
+    errorElement:<Errorjs></Errorjs>,
     children:[
         {
             index:true ,
