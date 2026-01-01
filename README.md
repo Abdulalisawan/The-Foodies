@@ -16,7 +16,7 @@ This application allows authenticated users to manage reviews and favourites wit
 
 Add a clean screenshot of the homepage or food listing page. Save the image as screenshot.png in the root directory.
 
-![The Foodies Screenshot](./screenshot.png)
+![The Foodies Screenshot](./screenshot2.jpeg)
 
 ---
 
