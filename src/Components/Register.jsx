@@ -65,6 +65,7 @@ const Register = () => {
   const googlesignin=()=>{
     signInWithPopup(auth,provider).then((result)=>{
       console.log(result.user)
+      navigate('/')
     }).catch((err)=>{
       console.log(err)
     })

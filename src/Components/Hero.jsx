@@ -9,11 +9,11 @@ const Hero = () => {
       id: 1,
       title: "Spicy Kacchi Biriyani",
       desc: "Traditional Bangladeshi dish with layered rice and juicy mutton.",
-      img: "/src/Asstes/kacchi.png",
+      img: "/src/Asstes/pngtree-top-view-of-thanksgiving-roasted-chicken-on-plate-with-other-dishes-png-image_13673245.png",
     },
     {
       id: 2,
-      title: "Green Salad Delight",
+      title: "Meat Kebab Skewer",
       desc: "Fresh and healthy salad with mint and lemon dressing.",
       img: "/src/Asstes/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTA4L3Jhd3BpeGVsX29mZmljZV8zNV9waG90b19vZl9wYW5pX3B1cmlfcmVjaXBlX3RvcF92aWV3X2lzb2xhdGVkX19hMzRlN.jpg",
     },
@@ -21,7 +21,7 @@ const Hero = () => {
       id: 3,
       title: "Prawn Curry Magic",
       desc: "Rich prawn curry with coconut milk and herbs.",
-      img: "/src/Asstes/pngtree-top-view-of-thanksgiving-roasted-chicken-on-plate-with-other-dishes-png-image_13673245.png",
+      img: "https://storage.googleapis.com/daqgyprcesitje/prawn-and-shrimp-curry.htm",
     },
   ];
     const imgRef = useRef(null);

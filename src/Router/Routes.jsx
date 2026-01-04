@@ -15,6 +15,7 @@ import Errorjs from "../Components/Error";
 import Editreview from "../Components/Editreview";
 import Favourite from "../Components/Favourite";
 import { getAuth } from "firebase/auth";
+import Dashboard from "../Pages/Dashboard";
 export async function myReviewLoader({ params, request }) {
   const auth = getAuth();
 
@@ -126,30 +127,50 @@ export async function myfav({ params }) {
             </Privaterouter>
            
         },
+       
         {
-          path:'/addreview', element: <Privaterouter>
-            <Addreview></Addreview>
-            </Privaterouter>
+          path:'/Alldeals', element:<Deals></Deals>
         },
-        {
-          path:'/myreview/:email',
+       
+  
+     
+    ]
+
+  },
+  {
+    
+   path:`/Dashboard`,
+    element:<Privaterouter>
+      <Dashboard></Dashboard>
+    </Privaterouter>,
+    children:[
+      {index:true,element:<Privaterouter>
+            <Addreview></Addreview>
+            </Privaterouter>},
+         {
+          path:'myreview/:email',
           loader:myReviewLoader,
            element:<Myreviews></Myreviews>
         },
         {
-          path:'/Alldeals', element:<Deals></Deals>
-        },
-        {
-          path:'/edit-review/:id', element:<Editreview></Editreview>
-        },
-        {
-          path:'/my-favourite/:email',
+          path:'my-favourite/:email',
           loader:myfav,
 
            element:<Privaterouter>
             <Favourite></Favourite>
             </Privaterouter>
-        }
+        },
+        {
+          path:'addreview', element: <Privaterouter>
+            <Addreview></Addreview>
+            </Privaterouter>
+        },
+        {
+          path:'edit-review/:id', element:<Editreview></Editreview>
+        },
     ]
+     
   },
+  
+  
 ]);
