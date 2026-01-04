@@ -16,6 +16,11 @@ import Editreview from "../Components/Editreview";
 import Favourite from "../Components/Favourite";
 import { getAuth } from "firebase/auth";
 import Dashboard from "../Pages/Dashboard";
+import DashboardHome from "../Pages/DashboardHome";
+import About from "../Pages/About";
+import Contact from "../Pages/Contact";
+import TermsOfService from "../Pages/TermsOfService";
+import PrivacyPolicy from "../Pages/PrivacyPolicy";
 export async function myReviewLoader({ params, request }) {
   const auth = getAuth();
 
@@ -131,6 +136,18 @@ export async function myfav({ params }) {
         {
           path:'/Alldeals', element:<Deals></Deals>
         },
+        {
+          path:'/about', element:<About></About>
+        },
+        {
+          path:'/contact', element:<Contact></Contact>
+        },
+        {
+          path:'/terms', element:<TermsOfService></TermsOfService>
+        },
+        {
+          path:'/privacy', element:<PrivacyPolicy></PrivacyPolicy>
+        },
        
   
      
@@ -145,7 +162,7 @@ export async function myfav({ params }) {
     </Privaterouter>,
     children:[
       {index:true,element:<Privaterouter>
-            <Addreview></Addreview>
+            <DashboardHome></DashboardHome>
             </Privaterouter>},
          {
           path:'myreview/:email',

@@ -1,89 +1,112 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState, useRef, useEffect } from 'react';
 import { Link, NavLink } from 'react-router';
 import { Authcontext } from '../../Context/Authcontext';
+import ThemeToggle from '../../Components/ThemeToggle';
 
 const Navbar = () => {
-  const {Userdata,Signout}= useContext(Authcontext)
+  const { Userdata, Signout } = useContext(Authcontext);
+  const [open, setOpen] = useState(false);
+  const dropdownRef = useRef(null);
 
+  const handlesignout = () => {
+    Signout()
+      .then(() => {
+        console.log(`signout succeful`);
+        setOpen(false);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
 
-const handlesignout=()=>{
-  Signout().then(()=>{
-    console.log(`signout succeful`)
+  // click outside to close
+  useEffect(() => {
+    const handler = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
+  }, []);
 
-  }).catch(err=>{
-    console.log(err)
-  })
-}
-    return (
-        <div className='bg-white border-b-2 md:flex-row flex-col shadow-2xl px-5 py-4 items-center shadow-3xl  flex justify-between  rounded-b-3xl mx-10 '>
+  return (
+    <div className='sticky top-0 z-50 bg-white dark:bg-gray-800 border-b-2 border-gray-200 dark:border-gray-700 md:flex-row flex-col shadow-lg px-5 py-4 items-center shadow-3xl flex justify-between rounded-b-3xl mx-10 transition-colors duration-200'>
 
-            <div className=' text-black text-3xl'>𝕿𝖍𝖊-𝖋𝖔𝖔𝖉𝖎𝖊𝖘</div>
+      <div className='text-black dark:text-white text-3xl font-bold'>
+        𝕿𝖍𝖊-𝖋𝖔𝖔𝖉𝖎𝖊𝖘
+      </div>
 
-            <div className='flex gap-2'>
-              <NavLink className={'text-black font-semibold'} to={'/'}>Home</NavLink>
-              <NavLink className={'text-black font-semibold'} to={'/reviews'}>All Reviews</NavLink>
-              <NavLink className={'text-black font-semibold'} to={'/Alldeals'}>Alldeals</NavLink>
-            
+      <div className='flex gap-2'>
+        <NavLink className={({ isActive }) => isActive ? 'text-emerald-600 dark:text-emerald-400 font-semibold border-b-2 border-emerald-600' : 'text-black dark:text-white font-semibold hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors'} to={'/'}>Home</NavLink>
+        <NavLink className={({ isActive }) => isActive ? 'text-emerald-600 dark:text-emerald-400 font-semibold border-b-2 border-emerald-600' : 'text-black dark:text-white font-semibold hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors'} to={'/reviews'}>All Reviews</NavLink>
+        <NavLink className={({ isActive }) => isActive ? 'text-emerald-600 dark:text-emerald-400 font-semibold border-b-2 border-emerald-600' : 'text-black dark:text-white font-semibold hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors'} to={'/Alldeals'}>Deals</NavLink>
+        <NavLink className={({ isActive }) => isActive ? 'text-emerald-600 dark:text-emerald-400 font-semibold border-b-2 border-emerald-600' : 'text-black dark:text-white font-semibold hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors'} to={'/about'}>About</NavLink>
+        <NavLink className={({ isActive }) => isActive ? 'text-emerald-600 dark:text-emerald-400 font-semibold border-b-2 border-emerald-600' : 'text-black dark:text-white font-semibold hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors'} to={'/contact'}>Contact</NavLink>
+      </div>
+
+      <div className='flex items-center gap-4'>
+        <ThemeToggle />
+
+        {Userdata ? (
+          <div ref={dropdownRef} className="relative">
+            {/* Trigger */}
+            <div
+              onClick={() => setOpen(prev => !prev)}
+              className="flex items-center gap-3 cursor-pointer"
+            >
+              <p className="font-semibold text-xl text-black dark:text-white">
+                {Userdata.displayName}
+              </p>
+
+              <div className="w-10 h-10 rounded-full overflow-hidden border border-gray-300">
+                <img
+                  src={Userdata.photoURL}
+                  alt="User Avatar"
+                  className="w-full h-full object-cover"
+                />
+              </div>
             </div>
-            
-           
 
+            {/* Dropdown Menu */}
+            {open && (
+              <ul className="absolute right-0 py-3 bg-white px-3 mt-3 w-52 rounded-box bg-base-100 shadow-lg">
+                <li>
+                  <NavLink
+                    to="/Dashboard"
+                    className="font-semibold hover:text-emerald-600 dark:hover:text-emerald-400"
+                    onClick={() => setOpen(false)}
+                  >
+                    Dashboard
+                  </NavLink>
+                </li>
 
-              {
-                Userdata ? (
-                <>
-                <div className='flex gap-3'>    
-                <p className='font-semibold text-xl text-black'>{Userdata.displayName}</p>            
-                
-                <div className="dropdown dropdown-end">
-  <div
-    tabIndex={0}
-    role="button"
-    className="btn btn-ghost btn-circle avatar w-[30px] h-[30px] p-0 overflow-hidden"
-  >
-    <div className="w-full h-full rounded-fulloverflow-hidden">
-      
-      <img
-        src={Userdata.photoURL}
-        className="w-full h-full object-cover object-center"
-      />
+              
+
+                <li>
+                  <button
+                    onClick={handlesignout}
+                    className="font-semibold text-left hover:text-emerald-600 dark:hover:text-emerald-400"
+                  >
+                    Logout
+                  </button>
+                </li>
+              </ul>
+            )}
+          </div>
+        ) : (
+          <div className='flex gap-2'>
+            <Link to={'/Login'} className="items-center justify-center px-10 py-2 rounded-[30px] border border-[#2f2f2f] bg-emerald-700 transition-all duration-200 ease-in-out font-semibold text-[14px] text-[#f1f1f1] hover:bg-emerald-900 hover:shadow-[0_4px_6px_rgba(0,0,0,0.3)] active:shadow-[inset_0_0_10px_#777]">
+              Login
+            </Link>
+            <Link to={'/Register'} className="items-center justify-center px-10 py-2 rounded-[30px] border border-[#2f2f2f] bg-emerald-700 transition-all duration-200 ease-in-out font-semibold text-[14px] text-[#f1f1f1] hover:bg-emerald-900 hover:shadow-[0_4px_6px_rgba(0,0,0,0.3)] active:shadow-[inset_0_0_10px_#777]">
+              Register
+            </Link>
+          </div>
+        )}
+      </div>
     </div>
-  </div>
-
-  <ul
-    tabIndex={0}
-    className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow-lg"
-  >
-    {/* <li> <NavLink className={'text-black font-semibold'} to={`/myreview/${Userdata?.email}`}>My reviews</NavLink></li>
-    <li> <NavLink className={'text-black font-semibold'} to={`/my-favourite/${Userdata?.email}`}>Favourite Review</NavLink></li>
-    <li> 
-     <NavLink className={'text-black font-semibold'} to={'/addreview'}>Add Reviews</NavLink></li> */}
-     {<NavLink  className={'text-black font-semibold'} to={`/Profile`}>Profile</NavLink>}
-     {<NavLink  className={'text-black font-semibold'} to={`/Dashboard`}>Dashboard</NavLink>}
-    <li onClick={handlesignout}><button> Logout </button></li>
-  </ul>
-</div>
-</div>
-</>):(
-   <div className='flex gap-2'>
-    <Link to={'/Login'}
-  className=" items-center justify-center  px-10 py-4  rounded-[30px] border border-[#2f2f2f] bg-emerald-700 transition-all duration-200 ease-in-out font-semibold text-[14px] text-[#f1f1f1] [text-shadow:0_1px_#000] hover:bg-emerald-900  hover:shadow-[0_4px_6px_rgba(0,0,0,0.3)] active:shadow-[inset_0_0_10px_#777]"
->
-  Login
-</Link>
-<Link to={'/Register'}
-  className=" items-center justify-center  px-10 py-4  rounded-[30px] border border-[#2f2f2f] bg-emerald-700 transition-all duration-200 ease-in-out font-semibold text-[14px] text-[#f1f1f1] [text-shadow:0_1px_#000] hover:bg-emerald-900  hover:shadow-[0_4px_6px_rgba(0,0,0,0.3)] active:shadow-[inset_0_0_10px_#777]"
->
-  Register
-</Link>
-</div>)
-              }
-                
-
-            
-            
-        </div>
-    );
+  );
 };
 
 export default Navbar;
